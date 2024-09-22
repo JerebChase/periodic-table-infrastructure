@@ -1,3 +1,13 @@
+terraform {
+  backend "remote" {
+    organization = "jeremy-chase-brown"
+
+    workspaces {
+      name = "periodic-table-infrastrucutre"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-east-1"
   profile = "default"
