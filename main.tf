@@ -1,12 +1,12 @@
-#terraform {
-#  backend "remote" {
-#    organization = "jeremy-chase-brown"
-#
-#    workspaces {
-#      name = "periodic-table-infrastructure"
-#    }
-#  }
-#}
+terraform {
+  backend "remote" {
+    organization = "jeremy-chase-brown"
+
+    workspaces {
+      name = "periodic-table-infrastructure"
+    }
+  }
+}
 
 provider "aws" {
   region = "us-east-1"
