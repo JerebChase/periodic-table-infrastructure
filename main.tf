@@ -6,13 +6,6 @@ terraform {
       name = "periodic-table-infrastructure"
     }
   }
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "3.74.2" # Adjust the version if needed
-    }
-  }
 }
 
 provider "aws" {
