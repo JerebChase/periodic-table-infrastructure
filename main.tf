@@ -3,7 +3,7 @@ terraform {
     organization = "jeremy-chase-brown"
 
     workspaces {
-      name = "overwrite"
+      name = "periodic-table-infrastructure"
     }
   }
 }
