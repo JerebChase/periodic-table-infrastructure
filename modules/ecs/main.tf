@@ -1,5 +1,8 @@
 resource "aws_ecs_cluster" "periodic_table_cluster" {
   name = "periodic-table-cluster"
+  tags = {
+    env: "${var.tag}"
+  }
 }
 
 resource "aws_ecs_task_definition" "periodic_table_task" {
@@ -18,7 +21,14 @@ resource "aws_ecs_task_definition" "periodic_table_task" {
       containerPort = 80
       hostPort      = 80
     }]
+    tags = {
+      env: "${var.tag}"
+    }
   }])
+
+  tags = {
+    env: "${var.tag}"
+  }
 }
 
 resource "aws_ecs_service" "periodic_table_service" {
@@ -31,5 +41,9 @@ resource "aws_ecs_service" "periodic_table_service" {
     subnets          = [var.periodic_table_subnet]
     security_groups  = [var.periodic_table_sg]
     assign_public_ip = true
+  }
+
+  tags = {
+    env: "${var.tag}"
   }
 }

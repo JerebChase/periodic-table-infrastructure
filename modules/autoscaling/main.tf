@@ -4,6 +4,9 @@ resource "aws_appautoscaling_target" "ecs_target" {
   scalable_dimension = "ecs:service:DesiredCount"
   min_capacity       = 0
   max_capacity       = 1
+  tags               = {
+    env: "${var.tag}"
+  }
 }
 
 resource "aws_appautoscaling_policy" "cpu_scaling_policy" {

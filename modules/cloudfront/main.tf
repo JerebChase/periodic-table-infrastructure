@@ -46,4 +46,8 @@ resource "aws_cloudfront_distribution" "cloudfront_api" {
   viewer_certificate {
     cloudfront_default_certificate = true
   }
+
+  tags = {
+    env: "${var.tag}"
+  }
 }
