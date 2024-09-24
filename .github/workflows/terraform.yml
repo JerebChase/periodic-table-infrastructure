@@ -63,9 +63,9 @@ jobs:
 
         if [[ "$BRANCH" == "refs/heads/main" ]]; then
           echo "Using 'prod' workspace"
-          terraform workspace select periodic-table-infrastructure-prd || terraform workspace new periodic-table-infrastructure-prd
+          terraform workspace select-or-create periodic-table-infrastructure-prd
         else
-          terraform workspace select periodic-table-infrastructure-dev || terraform workspace new periodic-table-infrastructure-dev
+          terraform workspace select-or-create periodic-table-infrastructure-dev
         fi
 
         echo "Current workspace: $(terraform workspace show)"
