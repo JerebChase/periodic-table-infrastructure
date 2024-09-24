@@ -49,7 +49,13 @@ jobs:
 
     - name: Set Terraform Workspace
       run: |
-        if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+        if [[ "${{ github.event_name }}" == "push" ]]; then
+          BRANCH="${{ github.ref }}"
+        elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          BRANCH="${{ github.event.pull_request.base.ref }}"
+        fi
+
+        if [[ "$BRANCH" == "refs/heads/main" ]]; then
           echo "Using 'prod' workspace"
           terraform workspace select-or-create periodic-table-infrastructure-prd
         else
