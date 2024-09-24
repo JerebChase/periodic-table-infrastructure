@@ -55,6 +55,8 @@ jobs:
           BRANCH="${{ github.event.pull_request.base.ref }}"
         fi
 
+        echo "BRANCH: $BRANCH"
+
         if [[ "$BRANCH" == "refs/heads/main" ]]; then
           echo "Using 'prod' workspace"
           terraform workspace select-or-create periodic-table-infrastructure-prd
