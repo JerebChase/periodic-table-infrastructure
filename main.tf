@@ -1,6 +1,10 @@
 terraform {
   cloud {
     organization = "jeremy-chase-brown"
+
+    workspaces {
+      name = "overwrite"
+    }
   }
 }
 
