@@ -47,6 +47,15 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
+    - name: Set Terraform Workspace
+      run: |
+        if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          echo "Using 'prod' workspace"
+          terraform workspace select periodic-table-infrastructure-prd || terraform workspace new periodic-table-infrastructure-prd
+        else
+          terraform workspace select periodic-table-infrastructure-dev || terraform workspace new periodic-table-infrastructure-dev
+        fi
+
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check
