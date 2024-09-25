@@ -36,6 +36,7 @@ resource "aws_ecs_service" "periodic_table_service" {
   cluster         = aws_ecs_cluster.periodic_table_cluster.id
   task_definition = aws_ecs_task_definition.periodic_table_task.arn
   desired_count   = 1
+  launch_type     = "FARGATE"
 
   network_configuration {
     subnets          = [var.periodic_table_subnet]
