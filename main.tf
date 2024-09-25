@@ -1,10 +1,6 @@
 terraform {
   cloud {
     organization = "jeremy-chase-brown"
-
-    workspaces {
-      name = "periodic-table-infrastructure"
-    }
   }
 }
 

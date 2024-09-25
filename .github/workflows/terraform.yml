@@ -7,8 +7,9 @@ name: 'Terraform'
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
   pull_request:
+    branches: [ "dev" ]
 
 permissions:
   contents: read
@@ -18,6 +19,8 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
+    env:
+      TF_WORKSPACE: 'periodic-table-infrastructure-dev'
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -45,30 +48,7 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: |
-        rm -rf .terraform
-        terraform init
-        terraform version
-        terraform workspace list
-
-    - name: Set Terraform Workspace
-      run: |
-        if [[ "${{ github.event_name }}" == "push" ]]; then
-          BRANCH="${{ github.ref }}"
-        elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
-          BRANCH="${{ github.event.pull_request.base.ref }}"
-        fi
-
-        echo "BRANCH: $BRANCH"
-
-        if [[ "$BRANCH" == "refs/heads/main" ]]; then
-          echo "Using 'prod' workspace"
-          terraform workspace select-or-create periodic-table-infrastructure-prd
-        else
-          terraform workspace select-or-create periodic-table-infrastructure-dev
-        fi
-
-        echo "Current workspace: $(terraform workspace show)"
+      run: terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
@@ -81,5 +61,5 @@ jobs:
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
