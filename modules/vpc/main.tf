@@ -2,7 +2,7 @@ resource "aws_vpc" "periodic_table_vpc" {
   cidr_block = "10.0.0.0/16"
   
   tags = {
-    env: "${var.tag}"
+    env = "${var.tag}"
   }
 }
 
@@ -12,7 +12,7 @@ resource "aws_subnet" "periodic_table_subnet" {
   availability_zone = "us-east-1a"
 
   tags = {
-    env: "${var.tag}"
+    env = "${var.tag}"
   }
 }
 
@@ -34,6 +34,6 @@ resource "aws_security_group" "periodic_table_sg" {
   }
 
   tags = {
-    env: "${var.tag}"
+    env = "${var.tag}"
   }
 }

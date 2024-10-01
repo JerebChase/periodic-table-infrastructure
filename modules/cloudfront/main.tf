@@ -48,6 +48,6 @@ resource "aws_cloudfront_distribution" "cloudfront_api" {
   }
 
   tags = {
-    env: "${var.tag}"
+    env = "${var.tag}"
   }
 }

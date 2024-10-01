@@ -5,7 +5,7 @@ resource "aws_lb" "periodic_table_nlb" {
   subnets            = ["${var.periodic_table_subnet}"]
 
   tags = {
-    env  = "${var.tag}"
+    env = "${var.tag}"
   }
 }
 
@@ -22,6 +22,6 @@ resource "aws_lb_target_group" "periodic_table_tg" {
   }
 
   tags = {
-    env  = "${var.tag}"
+    env = "${var.tag}"
   }
 }

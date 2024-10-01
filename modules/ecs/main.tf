@@ -1,7 +1,7 @@
 resource "aws_ecs_cluster" "periodic_table_cluster" {
   name = "periodic-table-cluster-${var.env}"
   tags = {
-    env: "${var.tag}"
+    env = "${var.tag}"
   }
 }
 
@@ -22,12 +22,12 @@ resource "aws_ecs_task_definition" "periodic_table_task" {
       hostPort      = 80
     }]
     tags = {
-      env: "${var.tag}"
+      env = "${var.tag}"
     }
   }])
 
   tags = {
-    env: "${var.tag}"
+    env = "${var.tag}"
   }
 }
 
@@ -45,6 +45,6 @@ resource "aws_ecs_service" "periodic_table_service" {
   }
 
   tags = {
-    env: "${var.tag}"
+    env = "${var.tag}"
   }
 }
