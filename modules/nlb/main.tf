@@ -1,6 +1,6 @@
 resource "aws_lb" "periodic_table_nlb" {
   name               = "periodic-table-nlb-${var.env}"
-  internal           = false
+  internal           = true
   load_balancer_type = "network"
   subnets            = ["${var.periodic_table_subnet}"]
 
