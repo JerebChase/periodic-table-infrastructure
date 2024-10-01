@@ -5,7 +5,7 @@ resource "aws_appautoscaling_target" "ecs_target" {
   min_capacity       = 0
   max_capacity       = 1
   tags               = {
-    env: "${var.tag}"
+    env = "${var.tag}"
   }
 }
 
@@ -25,4 +25,6 @@ resource "aws_appautoscaling_policy" "cpu_scaling_policy" {
     scale_in_cooldown  = 60
     scale_out_cooldown = 60
   }
+
+  depends_on = [aws_appautoscaling_target.ecs_target]
 }

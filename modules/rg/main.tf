@@ -8,7 +8,7 @@ resource "aws_resourcegroups_group" "periodic-table-rg" {
         "TagFilters" : [
           {
             "Key"    : "env",
-            "Values" : ["${var.tag}"]
+            "Values" : [var.tag]
           }
         ]
       }
@@ -16,6 +16,6 @@ resource "aws_resourcegroups_group" "periodic-table-rg" {
   }
 
   tags = {
-    env: "${var.tag}"
+    env = "${var.tag}"
   }
 }
