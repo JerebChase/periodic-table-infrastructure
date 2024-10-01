@@ -25,4 +25,6 @@ resource "aws_api_gateway_integration" "ecs_integration" {
   type          = "HTTP_PROXY"
   uri           = "http://${var.periodic_table_vpc_link}/path"
   connection_id = var.periodic_table_vpc_link
+
+  depends_on = [aws_api_gateway_method.proxy_method]
 }
