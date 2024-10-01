@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "periodic_table_api" {
-  name = "periodic-table-api"
+  name = "periodic-table-api-${var.env}"
   tags = {
     env: "${var.tag}"
   }

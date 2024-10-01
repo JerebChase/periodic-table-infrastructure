@@ -1,7 +1,7 @@
 resource "aws_cloudfront_distribution" "cloudfront_api" {
   origin {
     domain_name = "${var.periodic_table_api}.execute-api.us-east-1.amazonaws.com"
-    origin_id   = "api-gateway-origin"
+    origin_id   = "periodic-table-api-gateway-origin-${var.env}"
 
     custom_origin_config {
       http_port              = 80
@@ -15,7 +15,7 @@ resource "aws_cloudfront_distribution" "cloudfront_api" {
   default_root_object = ""
 
   default_cache_behavior {
-    target_origin_id       = "api-gateway-origin"
+    target_origin_id       = "periodic-table-api-gateway-origin-${var.env}"
     viewer_protocol_policy = "redirect-to-https"
 
     allowed_methods = ["GET", "HEAD", "OPTIONS"]
