@@ -1,10 +1,10 @@
-variable "periodic_table_cluster" {
-    description = "The cluster name for ecs"
+variable "periodic_table_vcp_id" {
+    description = "The id of the periodic table VPC"
     type        = string
 }
 
-variable "periodic_table_service" {
-    description = "The service name for ecs"
+variable "periodic_table_subnet" {
+    description = "The subnet for the periodic table VPC"
     type        = string
 }
 

@@ -1,12 +1,12 @@
 resource "aws_ecs_cluster" "periodic_table_cluster" {
-  name = "periodic-table-cluster"
+  name = "periodic-table-cluster-${var.env}"
   tags = {
     env: "${var.tag}"
   }
 }
 
 resource "aws_ecs_task_definition" "periodic_table_task" {
-  family                   = "periodic-table-task"
+  family                   = "periodic-table-task-${var.env}"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = var.ecs_role_arn
@@ -14,7 +14,7 @@ resource "aws_ecs_task_definition" "periodic_table_task" {
   memory                   = "512"     # 0.5 GB memory
 
   container_definitions = jsonencode([{
-    name  = "periodic-table-container"
+    name  = "periodic-table-container-${var.env}"
     image = "${var.ecr_repository_url}:latest"
     essential = true
     portMappings = [{
@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "periodic_table_task" {
 }
 
 resource "aws_ecs_service" "periodic_table_service" {
-  name            = "periodic-table-service"
+  name            = "periodic-table-service-${var.env}"
   cluster         = aws_ecs_cluster.periodic_table_cluster.id
   task_definition = aws_ecs_task_definition.periodic_table_task.arn
   desired_count   = 1
