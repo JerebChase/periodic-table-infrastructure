@@ -21,7 +21,7 @@ resource "aws_api_gateway_method" "proxy_method" {
 resource "aws_api_gateway_integration" "ecs_integration" {
   rest_api_id     = aws_api_gateway_rest_api.periodic_table_api.id
   resource_id     = aws_api_gateway_resource.proxy.id
-  http_method     = aws_api_gateway_method.proxy_method.http_method
+  http_method     = "ANY"
   type            = "HTTP_PROXY"
   uri             = "http://${var.periodic_table_lb_dns_name}:80/{proxy+}"
   connection_type = "VPC_LINK"
