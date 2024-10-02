@@ -16,11 +16,6 @@ resource "aws_lb_target_group" "periodic_table_tg" {
   vpc_id      = var.periodic_table_vcp_id
   target_type = "ip"
 
-  health_check {
-    path = "/"
-    protocol = "TCP"
-  }
-
   tags = {
     env = "${var.tag}"
   }
