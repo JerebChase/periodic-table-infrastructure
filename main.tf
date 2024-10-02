@@ -69,10 +69,11 @@ module "vpclink" {
 }
 
 module "apigw" {
-  source                  = "./modules/apigw"
-  periodic_table_vpc_link = module.vpclink.periodic_table_vpc_link
-  tag                     = local.aws_tag
-  env                     = var.env
+  source                     = "./modules/apigw"
+  periodic_table_vpc_link    = module.vpclink.periodic_table_vpc_link
+  periodic_table_lb_dns_name = module.nlb.periodic_table_lb_dns_name
+  tag                        = local.aws_tag
+  env                        = var.env
 }
 
 module "cloudfront" {
