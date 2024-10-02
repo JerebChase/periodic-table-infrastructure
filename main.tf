@@ -77,9 +77,9 @@ module "apigw" {
   env                        = var.env
 }
 
-module "cloudfront" {
+/* module "cloudfront" {
   source             = "./modules/cloudfront"
   periodic_table_api = module.apigw.periodic_table_api
   tag                = local.aws_tag
   env                = var.env
-}
+} */
