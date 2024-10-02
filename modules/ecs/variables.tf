@@ -3,6 +3,11 @@ variable "ecs_role_arn" {
     type        = string
 }
 
+variable "periodic_table_lb_arn"{
+    description = "The arn of the network load balancer"
+    type        = string
+}
+
 variable "ecr_repository_url" {
     description = "The url for the ecr repository"
     type        = string

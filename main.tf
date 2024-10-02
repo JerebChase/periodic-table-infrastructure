@@ -35,24 +35,6 @@ module "iam" {
   env    = var.env
 }
 
-module "ecs" {
-  source                = "./modules/ecs"
-  ecs_role_arn          = module.iam.ecs_role_arn
-  ecr_repository_url    = module.ecr.ecr_repository_url
-  periodic_table_subnet = module.vpc.periodic_table_subnet
-  periodic_table_sg     = module.vpc.periodic_table_sg
-  tag                   = local.aws_tag
-  env                   = var.env
-}
-
-module "autoscaling" {
-  source                 = "./modules/autoscaling"
-  periodic_table_cluster = module.ecs.periodic_table_cluster
-  periodic_table_service = module.ecs.periodic_table_service
-  tag                    = local.aws_tag
-  env                    = var.env
-}
-
 module "nlb" {
   source                = "./modules/nlb"
   periodic_table_vcp_id = module.vpc.periodic_table_vpc_id
@@ -66,6 +48,25 @@ module "vpclink" {
   periodic_table_lb_arn = module.nlb.periodic_table_lb_arn
   tag                   = local.aws_tag
   env                   = var.env
+}
+
+module "ecs" {
+  source                = "./modules/ecs"
+  ecs_role_arn          = module.iam.ecs_role_arn
+  ecr_repository_url    = module.ecr.ecr_repository_url
+  periodic_table_subnet = module.vpc.periodic_table_subnet
+  periodic_table_sg     = module.vpc.periodic_table_sg
+  periodic_table_lb_arn = module.nlb.periodic_table_lb_arn
+  tag                   = local.aws_tag
+  env                   = var.env
+}
+
+module "autoscaling" {
+  source                 = "./modules/autoscaling"
+  periodic_table_cluster = module.ecs.periodic_table_cluster
+  periodic_table_service = module.ecs.periodic_table_service
+  tag                    = local.aws_tag
+  env                    = var.env
 }
 
 module "apigw" {
