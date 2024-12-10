@@ -3,10 +3,13 @@ resource "aws_resourcegroups_group" "periodic-table-rg" {
   resource_query {
     query = <<JSON
 {
+    "ResourceTypeFilters": [
+      "AWS::AllSupported"
+    ],
     "TagFilters": [
         {
-        "Key": "env",
-        "Values": ["dev"]
+          "Key": "env",
+          "Values": ["${var.tag}"]
         }
     ]
 }
