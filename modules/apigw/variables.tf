@@ -4,7 +4,7 @@ variable "periodic_table_vpc_link" {
 }
 
 variable "periodic_table_lb_dns_name" {
-    description = "The dns anme for the network load balancer"
+    description = "The dns name for the network load balancer"
     type        = string
 }
 
