@@ -11,21 +11,21 @@ resource "aws_api_gateway_resource" "proxy" {
   path_part   = "{proxy+}"
 }
 
-resource "aws_api_gateway_method" "proxy_method" {
+resource "aws_api_gateway_method" "get_method" {
   rest_api_id   = aws_api_gateway_rest_api.periodic_table_api.id
   resource_id   = aws_api_gateway_resource.proxy.id
-  http_method   = "ANY"
+  http_method   = "GET"
   authorization = "NONE"
 }
 
 resource "aws_api_gateway_integration" "ecs_integration" {
   rest_api_id     = aws_api_gateway_rest_api.periodic_table_api.id
   resource_id     = aws_api_gateway_resource.proxy.id
-  http_method     = "ANY"
+  http_method     = "GET"
   type            = "HTTP_PROXY"
   uri             = "http://${var.periodic_table_lb_dns_name}/{proxy+}"
   connection_type = "VPC_LINK"
   connection_id   = var.periodic_table_vpc_link
 
-  depends_on = [aws_api_gateway_method.proxy_method]
+  depends_on = [aws_api_gateway_method.get_method]
 }
