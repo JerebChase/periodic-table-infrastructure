@@ -3,11 +3,6 @@ variable "ecs_task_role_arn" {
     type        = string
 }
 
-variable "ecs_service_role_arn" {
-    description = "The arn of the ecs service role"
-    type        = string
-}
-
 variable "periodic_table_lb_arn"{
     description = "The arn of the network load balancer"
     type        = string
