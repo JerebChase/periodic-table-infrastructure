@@ -52,7 +52,8 @@ module "vpclink" {
 
 module "ecs" {
   source                = "./modules/ecs"
-  ecs_role_arn          = module.iam.ecs_role_arn
+  ecs_task_role_arn     = module.iam.ecs_task_role_arn
+  ecs_service_role_arn  = module.iam.ecs_service_role_arn
   ecr_repository_url    = module.ecr.ecr_repository_url
   periodic_table_subnet = module.vpc.periodic_table_subnet
   periodic_table_sg     = module.vpc.periodic_table_sg

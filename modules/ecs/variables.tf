@@ -1,5 +1,10 @@
-variable "ecs_role_arn" {
+variable "ecs_task_role_arn" {
     description = "The arn of the ecs task execution role"
+    type        = string
+}
+
+variable "ecs_service_role_arn" {
+    description = "The arn of the ecs service role"
     type        = string
 }
 
