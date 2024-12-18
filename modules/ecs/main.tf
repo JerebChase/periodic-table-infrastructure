@@ -10,6 +10,7 @@ resource "aws_ecs_task_definition" "periodic_table_task" {
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = var.ecs_task_role_arn
+  task_role_arn            = var.ecs_task_role_arn 
   cpu                      = "256"     # 0.25 vCPU
   memory                   = "512"     # 0.5 GB memory
 
@@ -49,8 +50,6 @@ resource "aws_ecs_service" "periodic_table_service" {
     container_name   = "periodic-table-container-${var.env}"
     container_port   = 80
   }
-
-  iam_role = var.ecs_service_role_arn
 
   tags = {
     env = "${var.tag}"
