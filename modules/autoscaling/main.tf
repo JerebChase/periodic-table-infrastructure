@@ -2,8 +2,8 @@ resource "aws_appautoscaling_target" "ecs_target" {
   service_namespace  = "ecs"
   resource_id        = "service/${var.periodic_table_cluster}/${var.periodic_table_service}"
   scalable_dimension = "ecs:service:DesiredCount"
-  min_capacity       = 0
-  max_capacity       = 1
+  min_capacity       = 1
+  max_capacity       = 2
   tags               = {
     env = "${var.tag}"
   }
