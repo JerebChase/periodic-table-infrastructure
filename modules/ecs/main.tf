@@ -39,6 +39,12 @@ resource "aws_ecs_service" "periodic_table_service" {
   desired_count   = 1
   launch_type     = "FARGATE"
 
+  network_configuration {
+    subnets          = [var.periodic_table_subnet]
+    security_groups  = [var.periodic_table_sg]
+    assign_public_ip = true
+  }
+
   tags = {
     env = "${var.tag}"
   }
