@@ -8,6 +8,11 @@ variable "periodic_table_subnet" {
     type        = string
 }
 
+variable "alb_sg" {
+    description = "The security group for the alb on the periodic table VPC"
+    type        = string
+}
+
 variable "tag" {
     description = "The tag to apply to AWS resources"
     type        = string

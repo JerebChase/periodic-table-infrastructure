@@ -4,7 +4,7 @@ variable "ecs_task_role_arn" {
 }
 
 variable "periodic_table_lb_arn"{
-    description = "The arn of the network load balancer"
+    description = "The arn of the application load balancer"
     type        = string
 }
 
@@ -18,8 +18,8 @@ variable "periodic_table_subnet" {
     type        = string
 }
 
-variable "periodic_table_sg" {
-    description = "The security group for the periodic table VPC"
+variable "ecs_sg" {
+    description = "The security group for the ecs on the periodic table VPC"
     type        = string
 }
 
