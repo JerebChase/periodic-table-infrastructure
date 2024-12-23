@@ -46,7 +46,7 @@ module "alb" {
 
 module "vpclink" {
   source                = "./modules/vpclink"
-  periodic_table_lb_arn = module.nlb.periodic_table_lb_arn
+  periodic_table_lb_arn = module.alb.periodic_table_lb_arn
   tag                   = local.aws_tag
   env                   = var.env
 }
@@ -57,7 +57,7 @@ module "ecs" {
   ecr_repository_url    = module.ecr.ecr_repository_url
   periodic_table_subnet = module.vpc.periodic_table_subnet
   ecs_sg                = module.vpc.ecs_sg
-  periodic_table_lb_arn = module.nlb.periodic_table_lb_arn
+  periodic_table_lb_arn = module.alb.periodic_table_lb_arn
   tag                   = local.aws_tag
   env                   = var.env
 }
@@ -73,7 +73,7 @@ module "autoscaling" {
 module "apigw" {
   source                     = "./modules/apigw"
   periodic_table_vpc_link    = module.vpclink.periodic_table_vpc_link
-  periodic_table_lb_dns_name = module.nlb.periodic_table_lb_dns_name
+  periodic_table_lb_dns_name = module.alb.periodic_table_lb_dns_name
   tag                        = local.aws_tag
   env                        = var.env
 }
