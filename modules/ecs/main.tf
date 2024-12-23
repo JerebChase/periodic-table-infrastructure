@@ -45,6 +45,12 @@ resource "aws_ecs_service" "periodic_table_service" {
     assign_public_ip = true
   }
 
+  load_balancer {
+    target_group_arn = var.periodic_table_lb_arn
+    container_name   = "periodic-table-container-${var.env}"
+    container_port   = 8080
+  }
+
   tags = {
     env = "${var.tag}"
   }
