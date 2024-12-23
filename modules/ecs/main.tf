@@ -19,8 +19,8 @@ resource "aws_ecs_task_definition" "periodic_table_task" {
     image = "${var.ecr_repository_url}:latest"
     essential = true
     portMappings = [{
-      containerPort = 80
-      hostPort      = 80
+      containerPort = 8080
+      hostPort      = 8080
     }]
     tags = {
       env = "${var.tag}"
