@@ -13,10 +13,10 @@ variable "periodic_table_subnet_one" {
     type        = string
 }
 
-variable "periodic_table_subnet_two" {
-    description = "The second subnet for the periodic table VPC"
-    type        = string
-}
+# variable "periodic_table_subnet_two" {
+#     description = "The second subnet for the periodic table VPC"
+#     type        = string
+# }
 
 variable "ecs_sg" {
     description = "The security group for the ecs on the periodic table VPC"
