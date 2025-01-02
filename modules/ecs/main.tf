@@ -40,15 +40,9 @@ resource "aws_ecs_service" "periodic_table_service" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = [var.periodic_table_subnet]
+    subnets          = [var.periodic_table_subnet_one, var.periodic_table_subnet_two]
     security_groups  = [var.ecs_sg]
     assign_public_ip = true
-  }
-
-  load_balancer {
-    target_group_arn = var.periodic_table_lb_arn
-    container_name   = "periodic-table-container-${var.env}"
-    container_port   = 8080
   }
 
   tags = {

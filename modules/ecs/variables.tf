@@ -3,18 +3,18 @@ variable "ecs_task_role_arn" {
     type        = string
 }
 
-variable "periodic_table_lb_arn"{
-    description = "The arn of the application load balancer"
-    type        = string
-}
-
 variable "ecr_repository_url" {
     description = "The url for the ecr repository"
     type        = string
 }
 
-variable "periodic_table_subnet" {
-    description = "The subnet for the periodic table VPC"
+variable "periodic_table_subnet_one" {
+    description = "The first subnet for the periodic table VPC"
+    type        = string
+}
+
+variable "periodic_table_subnet_two" {
+    description = "The second subnet for the periodic table VPC"
     type        = string
 }
 
