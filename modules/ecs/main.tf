@@ -40,7 +40,7 @@ resource "aws_ecs_service" "periodic_table_service" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = [var.periodic_table_subnet_one]
+    subnets          = [var.periodic_table_subnet_one, var.periodic_table_subnet_two]
     security_groups  = [var.ecs_sg]
     assign_public_ip = true
   }
