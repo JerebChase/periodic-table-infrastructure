@@ -3,10 +3,10 @@ output "periodic_table_vpc_id" {
     value       = aws_vpc.periodic_table_vpc.id
 }
 
-# output "periodic_table_subnet_one" {
-#     description = "The first subnet for the periodic table VPC"
-#     value       = aws_subnet.periodic_table_subnet_one.id
-# }
+output "periodic_table_subnet_one" {
+    description = "The first subnet for the periodic table VPC"
+    value       = aws_subnet.periodic_table_subnet_one.id
+}
 
 output "periodic_table_subnet_two" {
     description = "The second subnet for the periodic table VPC"
