@@ -62,13 +62,13 @@ module "ecs" {
   env                   = var.env
 }
 
-module "autoscaling" {
-  source                 = "./modules/autoscaling"
-  periodic_table_cluster = module.ecs.periodic_table_cluster
-  periodic_table_service = module.ecs.periodic_table_service
-  tag                    = local.aws_tag
-  env                    = var.env
-}
+# module "autoscaling" {
+#   source                 = "./modules/autoscaling"
+#   periodic_table_cluster = module.ecs.periodic_table_cluster
+#   periodic_table_service = module.ecs.periodic_table_service
+#   tag                    = local.aws_tag
+#   env                    = var.env
+# }
 
 # module "apigw" {
 #   source                     = "./modules/apigw"
