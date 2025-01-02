@@ -8,10 +8,10 @@ variable "ecr_repository_url" {
     type        = string
 }
 
-variable "periodic_table_subnet_one" {
-    description = "The first subnet for the periodic table VPC"
-    type        = string
-}
+# variable "periodic_table_subnet_one" {
+#     description = "The first subnet for the periodic table VPC"
+#     type        = string
+# }
 
 variable "periodic_table_subnet_two" {
     description = "The second subnet for the periodic table VPC"
