@@ -8,21 +8,10 @@ resource "aws_vpc" "periodic_table_vpc" {
   }
 }
 
-resource "aws_subnet" "periodic_table_subnet_one" {
+resource "aws_subnet" "periodic_table_subnet" {
   vpc_id            = aws_vpc.periodic_table_vpc.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-1a"
-  map_public_ip_on_launch = true
-
-  tags = {
-    env = "${var.tag}"
-  }
-}
-
-resource "aws_subnet" "periodic_table_subnet_two" {
-  vpc_id            = aws_vpc.periodic_table_vpc.id
-  cidr_block        = "10.0.2.0/24"
-  availability_zone = "us-east-1b"
   map_public_ip_on_launch = true
 
   tags = {
@@ -50,4 +39,26 @@ resource "aws_security_group" "ecs_sg" {
   tags = {
     env = "${var.tag}"
   }
+}
+
+resource "aws_internet_gateway" "periodic_table_gw" {
+  vpc_id = aws_vpc.periodic_table_vpc.id
+
+  tags = {
+    env = "${var.tag}"
+  }
+}
+
+resource "aws_route_table" "periodic_table_rt" {
+  vpc_id = aws_vpc.periodic_table_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.periodic_table_gw.id
+  }
+}
+
+resource "aws_route_table_association" "periodic_table_rta" {
+  subnet_id      = aws_subnet.periodic_table_subnet.id
+  route_table_id = aws_route_table.periodic_table_rt.id
 }
