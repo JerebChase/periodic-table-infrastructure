@@ -5,6 +5,11 @@ resource "aws_ecs_cluster" "periodic_table_cluster" {
   }
 }
 
+resource "aws_cloudwatch_log_group" "ecs_log_group" {
+  name              = "/ecs/spring-boot"
+  retention_in_days = 7
+}
+
 resource "aws_ecs_task_definition" "periodic_table_task" {
   family                   = "periodic-table-container-${var.env}"
   network_mode             = "awsvpc"
