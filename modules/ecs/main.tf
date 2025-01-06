@@ -22,6 +22,14 @@ resource "aws_ecs_task_definition" "periodic_table_task" {
       containerPort = 8080
       hostPort      = 8080
     }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group  = "/ecs/spring-boot"
+        awslogs-region = "us-east-1"
+        awslogs-stream-prefix = "ecs"
+      }
+    }
     tags = {
       env = "${var.tag}"
     }
