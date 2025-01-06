@@ -10,7 +10,7 @@ resource "aws_vpc" "periodic_table_vpc" {
 
 resource "aws_subnet" "periodic_table_subnet" {
   vpc_id            = aws_vpc.periodic_table_vpc.id
-  cidr_block        = "10.0.2.0/24"
+  cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-1a"
   map_public_ip_on_launch = true
 
