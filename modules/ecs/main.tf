@@ -35,6 +35,10 @@ resource "aws_ecs_task_definition" "periodic_table_task" {
         awslogs-stream-prefix = "ecs"
       }
     }
+    runtime_platform = {
+      operating_system_family = "LINUX"
+      cpu_architecture        = "ARM64"
+    }
     tags = {
       env = "${var.tag}"
     }
