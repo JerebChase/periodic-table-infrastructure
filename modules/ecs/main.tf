@@ -11,7 +11,7 @@ resource "aws_cloudwatch_log_group" "ecs_log_group" {
 }
 
 resource "aws_ecs_task_definition" "periodic_table_task" {
-  family                   = "periodic-table-container-${var.env}"
+  family                   = "periodic-table-task-${var.env}"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = var.ecs_task_role_arn
@@ -60,6 +60,12 @@ resource "aws_ecs_service" "periodic_table_service" {
     subnets          = [var.periodic_table_subnet]
     security_groups  = [var.ecs_sg]
     assign_public_ip = true
+  }
+
+  load_balancer {
+    target_group_arn = var.periodic_table_tg_arn
+    container_name   = "periodic-table-container-${var.env}"
+    container_port   = 8080
   }
 
   tags = {
