@@ -44,19 +44,20 @@ module "alb" {
   env                   = var.env
 }
 
-module "vpclink" {
-  source                 = "./modules/vpclink"
-  periodic_table_sgs     = module.vpc.ecs_sg
-  periodic_table_subnets = module.vpc.periodic_table_subnet
-  tag                    = local.aws_tag
-  env                    = var.env
-}
+# module "vpclink" {
+#   source                 = "./modules/vpclink"
+#   periodic_table_sgs     = module.vpc.ecs_sg
+#   periodic_table_subnets = module.vpc.periodic_table_subnet
+#   tag                    = local.aws_tag
+#   env                    = var.env
+# }
 
 module "ecs" {
 source                  = "./modules/ecs"
   ecs_task_role_arn     = module.iam.ecs_task_role_arn
   ecr_repository_url    = module.ecr.ecr_repository_url
   periodic_table_subnet = module.vpc.periodic_table_subnet
+  periodic_table_tg_arn = module.alb.periodic_table_tg_arn
   ecs_sg                = module.vpc.ecs_sg
   tag                   = local.aws_tag
   env                   = var.env
@@ -70,13 +71,13 @@ source                  = "./modules/ecs"
 #   env                    = var.env
 # }
 
-module "apigw" {
-  source                     = "./modules/apigw"
-  periodic_table_vpc_link    = module.vpclink.periodic_table_vpc_link
-  periodic_table_lb_dns_name = module.alb.periodic_table_lb_dns_name
-  tag                        = local.aws_tag
-  env                        = var.env
-}
+# module "apigw" {
+#   source                     = "./modules/apigw"
+#   periodic_table_vpc_link    = module.vpclink.periodic_table_vpc_link
+#   periodic_table_lb_dns_name = module.alb.periodic_table_lb_dns_name
+#   tag                        = local.aws_tag
+#   env                        = var.env
+# }
 
 /* module "cloudfront" {
   source             = "./modules/cloudfront"

@@ -12,3 +12,8 @@ output "ecs_sg" {
     description = "The security group for the ecs on the periodic table VPC"
     value       = aws_security_group.ecs_sg.id
 }
+
+output "alb_sg" {
+    description = "The security group for the alb on the periodic table VPC"
+    value       = aws_security_group.alb_sg.id
+}
