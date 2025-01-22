@@ -8,9 +8,9 @@ variable "ecr_repository_url" {
     type        = string
 }
 
-variable "periodic_table_subnet" {
-    description = "The subnet for the periodic table VPC"
-    type        = string
+variable "periodic_table_subnets" {
+    description = "The subnets for the periodic table VPC"
+    type        = list
 }
 
 variable "periodic_table_tg_arn" {

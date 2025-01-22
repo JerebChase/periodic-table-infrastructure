@@ -36,12 +36,12 @@ module "iam" {
 }
 
 module "alb" {
-  source                = "./modules/alb"
-  periodic_table_vcp_id = module.vpc.periodic_table_vpc_id
-  periodic_table_subnet = module.vpc.periodic_table_subnet
-  alb_sg                = module.vpc.alb_sg 
-  tag                   = local.aws_tag
-  env                   = var.env
+  source                 = "./modules/alb"
+  periodic_table_vcp_id  = module.vpc.periodic_table_vpc_id
+  periodic_table_subnets = module.vpc.periodic_table_subnets
+  alb_sg                 = module.vpc.alb_sg 
+  tag                    = local.aws_tag
+  env                    = var.env
 }
 
 # module "vpclink" {
@@ -53,14 +53,14 @@ module "alb" {
 # }
 
 module "ecs" {
-source                  = "./modules/ecs"
-  ecs_task_role_arn     = module.iam.ecs_task_role_arn
-  ecr_repository_url    = module.ecr.ecr_repository_url
-  periodic_table_subnet = module.vpc.periodic_table_subnet
-  periodic_table_tg_arn = module.alb.periodic_table_tg_arn
-  ecs_sg                = module.vpc.ecs_sg
-  tag                   = local.aws_tag
-  env                   = var.env
+source                   = "./modules/ecs"
+  ecs_task_role_arn      = module.iam.ecs_task_role_arn
+  ecr_repository_url     = module.ecr.ecr_repository_url
+  periodic_table_subnets = module.vpc.periodic_table_subnets
+  periodic_table_tg_arn  = module.alb.periodic_table_tg_arn
+  ecs_sg                 = module.vpc.ecs_sg
+  tag                    = local.aws_tag
+  env                    = var.env
 }
 
 # module "autoscaling" {
