@@ -11,7 +11,7 @@ resource "aws_cloudwatch_log_group" "ecs_log_group" {
 }
 
 resource "aws_ecs_task_definition" "periodic_table_task" {
-  family                   = "periodic-table-container-${var.env}"
+  family                   = "periodic-table-task-${var.env}"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = var.ecs_task_role_arn
