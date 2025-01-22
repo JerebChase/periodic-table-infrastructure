@@ -58,7 +58,7 @@ source                   = "./modules/ecs"
   ecr_repository_url     = module.ecr.ecr_repository_url
   periodic_table_subnets = module.vpc.periodic_table_subnets
   periodic_table_tg_arn  = module.alb.periodic_table_tg_arn
-  ecs_sg                 = module.vpc.ecs_sg
+  ecs_sg                 = module.vpc.al_sg
   tag                    = local.aws_tag
   env                    = var.env
 }
