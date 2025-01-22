@@ -3,7 +3,7 @@ resource "aws_lb" "periodic_table_alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [var.alb_sg] 
-  subnets            = [var.periodic_table_subnet]
+  subnets            = var.periodic_table_subnets
 
   tags = {
     env = "${var.tag}"

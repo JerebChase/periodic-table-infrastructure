@@ -8,10 +8,21 @@ resource "aws_vpc" "periodic_table_vpc" {
   }
 }
 
-resource "aws_subnet" "periodic_table_subnet" {
+resource "aws_subnet" "periodic_table_subnet1" {
+  vpc_id            = aws_vpc.periodic_table_vpc.id
+  cidr_block        = "10.0.0.0/24"
+  availability_zone = "us-east-1a"
+  map_public_ip_on_launch = true
+
+  tags = {
+    env = "${var.tag}"
+  }
+}
+
+resource "aws_subnet" "periodic_table_subnet2" {
   vpc_id            = aws_vpc.periodic_table_vpc.id
   cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1b"
   map_public_ip_on_launch = true
 
   tags = {
@@ -39,27 +50,27 @@ resource "aws_security_group" "alb_sg" {
   }
 }
 
-resource "aws_security_group" "ecs_sg" {
-  vpc_id = aws_vpc.periodic_table_vpc.id
+# resource "aws_security_group" "ecs_sg" {
+#   vpc_id = aws_vpc.periodic_table_vpc.id
 
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = [aws_security_group.alb_sg.id]
-  }
+#   ingress {
+#     from_port   = 8080
+#     to_port     = 8080
+#     protocol    = "tcp"
+#     cidr_blocks = [aws_security_group.alb_sg.id]
+#   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
 
-  tags = {
-    env = "${var.tag}"
-  }
-}
+#   tags = {
+#     env = "${var.tag}"
+#   }
+# }
 
 resource "aws_internet_gateway" "periodic_table_gw" {
   vpc_id = aws_vpc.periodic_table_vpc.id
@@ -78,7 +89,12 @@ resource "aws_route_table" "periodic_table_rt" {
   }
 }
 
-resource "aws_route_table_association" "periodic_table_rta" {
-  subnet_id      = aws_subnet.periodic_table_subnet.id
+resource "aws_route_table_association" "periodic_table_rta1" {
+  subnet_id      = aws_subnet.periodic_table_subnet1.id
+  route_table_id = aws_route_table.periodic_table_rt.id
+}
+
+resource "aws_route_table_association" "periodic_table_rta2" {
+  subnet_id      = aws_subnet.periodic_table_subnet2.id
   route_table_id = aws_route_table.periodic_table_rt.id
 }
