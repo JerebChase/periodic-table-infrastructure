@@ -8,10 +8,10 @@ output "periodic_table_subnets" {
     value       = [aws_subnet.periodic_table_subnet1.id, aws_subnet.periodic_table_subnet2.id]
 }
 
-# output "ecs_sg" {
-#     description = "The security group for the ecs on the periodic table VPC"
-#     value       = aws_security_group.ecs_sg.id
-# }
+output "ecs_sg" {
+    description = "The security group for the ecs on the periodic table VPC"
+    value       = aws_security_group.ecs_sg.id
+}
 
 output "alb_sg" {
     description = "The security group for the alb on the periodic table VPC"
