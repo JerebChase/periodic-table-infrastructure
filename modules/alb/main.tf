@@ -37,7 +37,7 @@ resource "aws_lb_listener" "periodic_table_listener" {
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = aws_lb_target_group.periodic_table_tg.id
+    target_group_arn = aws_lb_target_group.periodic_table_tg.arn
     type             = "forward"
   }
 }
