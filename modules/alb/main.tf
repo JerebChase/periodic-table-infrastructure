@@ -31,13 +31,13 @@ resource "aws_lb_target_group" "periodic_table_tg" {
   }
 }
 
-resource "aws_lb_listener" "periodic_table_listener" {
-  load_balancer_arn = aws_lb.periodic_table_alb.arn
-  port              = 80
-  protocol          = "HTTP"
+# resource "aws_lb_listener" "periodic_table_listener" {
+#   load_balancer_arn = aws_lb.periodic_table_alb.arn
+#   port              = 80
+#   protocol          = "HTTP"
 
-  default_action {
-    target_group_arn = aws_lb_target_group.periodic_table_tg.id
-    type             = "forward"
-  }
-}
+#   default_action {
+#     target_group_arn = aws_lb_target_group.periodic_table_tg.id
+#     type             = "forward"
+#   }
+# }
