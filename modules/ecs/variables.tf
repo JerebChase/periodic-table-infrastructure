@@ -13,10 +13,10 @@ variable "periodic_table_subnets" {
     type        = list
 }
 
-# variable "periodic_table_tg_arn" {
-#     description = "The arn for the target group"
-#     type        = string
-# }
+variable "periodic_table_tg_arn" {
+    description = "The arn for the target group"
+    type        = string
+}
 
 variable "ecs_sg" {
     description = "The security group for the ecs on the periodic table VPC"
