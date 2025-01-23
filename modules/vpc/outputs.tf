@@ -5,7 +5,7 @@ output "periodic_table_vpc_id" {
 
 output "periodic_table_subnets" {
     description = "The subnet for the periodic table VPC"
-    value       = [aws_subnet.periodic_table_subnet1.id, aws_subnet.periodic_table_subnet2.id]
+    value       = [aws_subnet.periodic_table_subnet1.id]
 }
 
 output "ecs_sg" {
