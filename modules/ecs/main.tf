@@ -24,8 +24,8 @@ resource "aws_ecs_task_definition" "periodic_table_task" {
     image = "${var.ecr_repository_url}:latest"
     essential = true
     portMappings = [{
-      containerPort = 8080
-      hostPort      = 8080
+      containerPort = 80
+      hostPort      = 80
     }]
     logConfiguration = {
       logDriver = "awslogs"
