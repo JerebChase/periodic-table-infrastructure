@@ -29,6 +29,12 @@ module "vpc" {
   tag    = local.aws_tag
 }
 
+module "s3" {
+  source = "./modules/s3"
+  tag    = local.aws_tag
+  env    = var.env
+}
+
 module "db" {
   source = "./modules/db"
   tag    = local.aws_tag
