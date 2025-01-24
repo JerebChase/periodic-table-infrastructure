@@ -10,12 +10,13 @@ resource "aws_dynamodb_table" "periodic_table_db" {
     type = "N"
   }
   
-#   import_table {
-#     input_format = "CSV"
-#     s3_bucket_source {
-      
-#     }
-#   }
+  import_table {
+    input_format = "CSV"
+    s3_bucket_source {
+      bucket = var.periodic_table_s3_bucket
+    }
+  }
+  
   tags = {
     env = "${var.tag}"
   }

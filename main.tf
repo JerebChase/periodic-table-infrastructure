@@ -36,9 +36,10 @@ module "s3" {
 }
 
 module "db" {
-  source = "./modules/db"
-  tag    = local.aws_tag
-  env    = var.env
+  source                   = "./modules/db"
+  tag                      = local.aws_tag
+  env                      = var.env
+  periodic_table_s3_bucket = module.s3.periodic_table_s3_bucket
 }
 
 module "iam" {
