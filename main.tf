@@ -29,10 +29,17 @@ module "vpc" {
   tag    = local.aws_tag
 }
 
-module "iam" {
-  source = "./modules/iam"
+module "db" {
+  source = "./modules/db"
   tag    = local.aws_tag
   env    = var.env
+}
+
+module "iam" {
+  source                = "./modules/iam"
+  tag                   = local.aws_tag
+  env                   = var.env
+  periodic_table_db_arn = module.db.periodic_table_db_arn
 }
 
 module "alb" {
