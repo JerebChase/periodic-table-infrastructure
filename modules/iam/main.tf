@@ -1,3 +1,24 @@
+data "aws_iam_policy_document" "dynamodb_policy_json" {
+  statement {
+    effect    = "Allow"
+    actions   = [
+                  "dynamodb:GetItem",
+                  "dynamodb:PutItem",
+                  "dynamodb:UpdateItem",
+                  "dynamodb:DeleteItem",
+                  "dynamodb:Query",
+                  "dynamodb:Scan"
+                ]
+    resources = [var.periodic_table_db_arn]
+  }
+}
+
+resource "aws_iam_policy" "dynamodb_policy" {
+  name        = "periodic-table-${var.env}-db-access-policy"
+  description = "A policy to give the ECS task access to the DynamoDB table"
+  policy      = data.aws_iam_policy_document.dynamodb_policy_json.json
+}
+
 resource "aws_iam_role" "ecs_task_execution_role" {
   name = "periodic-table-ecs-task-execution-role-${var.env}"
   assume_role_policy = jsonencode({
@@ -24,4 +45,9 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
 resource "aws_iam_role_policy_attachment" "ecr_pull_policy" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
+resource "aws_iam_role_policy_attachment" "dynamodb_access_policy" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = aws_iam_policy.dynamodb_policy.arn
 }
