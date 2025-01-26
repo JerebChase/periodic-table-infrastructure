@@ -31,15 +31,6 @@ resource "aws_lb_target_group" "periodic_table_tg" {
   }
 }
 
-# resource "aws_acm_certificate" "periodic_table_cert" {
-#   domain_name       = "periodictable-api-${var.env}.jeremychasebrown.com"
-#   validation_method = "DNS"
-
-#   tags = {
-#     env = "${var.tag}"
-#   }
-# }
-
 resource "aws_lb_listener" "periodic_table_listener_http" {
   load_balancer_arn = aws_lb.periodic_table_alb.arn
   port              = 80
@@ -51,15 +42,15 @@ resource "aws_lb_listener" "periodic_table_listener_http" {
   }
 }
 
-# resource "aws_lb_listener" "periodic_table_listener_https" {
-#   load_balancer_arn = aws_lb.periodic_table_alb.arn
-#   port              = 443
-#   protocol          = "HTTPS"
-#   ssl_policy        = "ELBSecurityPolicy-2016-08"
-#   certificate_arn   = aws_acm_certificate.periodic_table_cert.arn
+resource "aws_lb_listener" "periodic_table_listener_https" {
+  load_balancer_arn = aws_lb.periodic_table_alb.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = var.certificate_arn
 
-#   default_action {
-#     type             = "forward"
-#     target_group_arn = aws_lb_target_group.periodic_table_tg.arn
-#   }
-# }
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.periodic_table_tg.arn
+  }
+}

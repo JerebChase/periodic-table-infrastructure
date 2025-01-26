@@ -3,3 +3,8 @@ variable "env" {
   type        = string
   default     = "dev"
 }
+
+variable "certificate_arn" {
+  description = "The ARN of the certificate to use for HTTPS"
+  type        = string
+}

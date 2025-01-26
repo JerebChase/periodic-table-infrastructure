@@ -13,6 +13,11 @@ variable "alb_sg" {
     type        = string
 }
 
+variable "certificate_arn" {
+    description = "The ARN of the certificate to use for HTTPS"
+    type        = string
+}
+
 variable "tag" {
     description = "The tag to apply to AWS resources"
     type        = string
