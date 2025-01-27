@@ -1,6 +1,14 @@
+resource "aws_cloudfront_origin_access_control" "access_control" {
+  name                              = "periodic-table-access-control-${var.env}"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+
 resource "aws_cloudfront_distribution" "website_distribution" {
   origin {
     domain_name = "${var.periodic_table_bucket_endpoint}"
+    origin_access_control_id = aws_cloudfront_origin_access_control.access_control.id
     origin_id   = "periodic-table-origin-${var.env}"
   }
 
