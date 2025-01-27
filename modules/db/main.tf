@@ -14,6 +14,7 @@ resource "aws_dynamodb_table" "periodic_table_db" {
     input_format = "CSV"
     s3_bucket_source {
       bucket = var.periodic_table_s3_bucket
+      key_prefix = "periodic-table-import.csv"
     }
   }
   
