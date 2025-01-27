@@ -94,9 +94,10 @@ source                   = "./modules/ecs"
 #   env                        = var.env
 # }
 
-/* module "cloudfront" {
-  source             = "./modules/cloudfront"
-  periodic_table_api = module.apigw.periodic_table_api
-  tag                = local.aws_tag
-  env                = var.env
-} */
+module "cloudfront" {
+  source                         = "./modules/cloudfront"
+  periodic_table_bucket_endpoint = module.s3.periodic_table_bucket_endpoint
+  certificate_arn                = var.certificate_arn
+  tag                            = local.aws_tag
+  env                            = var.env
+}
