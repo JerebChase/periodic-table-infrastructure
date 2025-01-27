@@ -7,15 +7,6 @@ resource "aws_s3_bucket" "periodic_table_bucket" {
   }
 }
 
-resource "aws_s3_object" "periodic_table_files" {
-  for_each = fileset("", "**")
-
-  bucket = aws_s3_bucket.periodic_table_bucket.bucket
-  key    = each.value
-  source = "${each.value}"
-  acl    = "public-read"
-}
-
 resource "aws_s3_bucket_ownership_controls" "periodic_table_bucket_ownership" {
   bucket = aws_s3_bucket.periodic_table_bucket.id
   rule {
