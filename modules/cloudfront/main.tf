@@ -1,21 +1,14 @@
-resource "aws_cloudfront_distribution" "cloudfront_api" {
+resource "aws_cloudfront_distribution" "website_distribution" {
   origin {
-    domain_name = "${var.periodic_table_api}.execute-api.us-east-1.amazonaws.com"
-    origin_id   = "periodic-table-api-gateway-origin-${var.env}"
-
-    custom_origin_config {
-      http_port              = 80
-      https_port             = 443
-      origin_protocol_policy = "https-only"
-      origin_ssl_protocols   = ["TLSv1.2"]
-    }
+    domain_name = "${var.periodic_table_bucket_endpoint}"
+    origin_id   = "periodic-table-origin-${var.env}"
   }
 
   enabled             = true
-  default_root_object = ""
+  default_root_object = "index.html"
 
   default_cache_behavior {
-    target_origin_id       = "periodic-table-api-gateway-origin-${var.env}"
+    target_origin_id       = "periodic-table-origin-${var.env}"
     viewer_protocol_policy = "redirect-to-https"
 
     allowed_methods = ["GET", "HEAD", "OPTIONS"]
@@ -44,7 +37,8 @@ resource "aws_cloudfront_distribution" "cloudfront_api" {
   price_class = "PriceClass_100"  # Cheapest price class (US, Canada, Europe)
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn = var.certificate_arn
+    ssl_support_method = "sni-only"
   }
 
   tags = {

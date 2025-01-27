@@ -1,5 +1,10 @@
-variable "periodic_table_api" {
-    description = "The api id for the periodic table api"
+variable "periodic_table_bucket_endpoint" {
+    description = "The endpoint for s3 bucket website"
+    type        = string
+}
+
+variable "certificate_arn" {
+    description = "The ARN of the certificate to use for HTTPS"
     type        = string
 }
 
