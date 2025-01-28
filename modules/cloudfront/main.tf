@@ -41,6 +41,8 @@ resource "aws_cloudfront_distribution" "website_distribution" {
     }
   }
 
+  aliases = [var.frontend_domain]
+
   price_class = "PriceClass_100"  # Cheapest price class (US, Canada, Europe)
 
   viewer_certificate {
