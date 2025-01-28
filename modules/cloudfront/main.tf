@@ -7,9 +7,16 @@ resource "aws_cloudfront_origin_access_control" "access_control" {
 
 resource "aws_cloudfront_distribution" "website_distribution" {
   origin {
-    domain_name              = var.periodic_table_bucket_domain
+    domain_name              = var.periodic_table_bucket_endpoint
     origin_access_control_id = aws_cloudfront_origin_access_control.access_control.id
     origin_id                = "periodic-table-origin-${var.env}"
+  
+    custom_origin_config {
+      origin_protocol_policy = "http-only" # S3 website only supports HTTP
+      http_port              = 80
+      https_port             = 443
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
   }
 
   enabled             = true

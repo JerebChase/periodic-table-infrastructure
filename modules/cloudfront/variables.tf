@@ -1,5 +1,5 @@
-variable "periodic_table_bucket_domain" {
-    description = "The domain for s3 bucket website"
+variable "periodic_table_bucket_endpoint" {
+    description = "The endpoint for s3 bucket website"
     type        = string
 }
 
