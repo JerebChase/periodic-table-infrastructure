@@ -7,9 +7,9 @@ resource "aws_cloudfront_origin_access_control" "access_control" {
 
 resource "aws_cloudfront_distribution" "website_distribution" {
   origin {
-    domain_name = "${var.periodic_table_bucket_endpoint}"
+    domain_name              = var.periodic_table_bucket_endpoint
     origin_access_control_id = aws_cloudfront_origin_access_control.access_control.id
-    origin_id   = "periodic-table-origin-${var.env}"
+    origin_id                = "periodic-table-origin-${var.env}"
   }
 
   enabled             = true
