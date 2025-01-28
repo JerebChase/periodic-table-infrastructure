@@ -23,6 +23,10 @@ resource "aws_ecs_task_definition" "periodic_table_task" {
     name  = "periodic-table-container-${var.env}"
     image = "${var.ecr_repository_url}:latest"
     essential = true
+    environment = [{
+      name  = "SPRING_PROFILES_ACTIVE"
+      value = "${var.env}"
+    }]
     portMappings = [{
       containerPort = 8080
       hostPort      = 8080
