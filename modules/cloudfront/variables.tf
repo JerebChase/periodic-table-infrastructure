@@ -8,6 +8,11 @@ variable "certificate_arn" {
     type        = string
 }
 
+variable "frontend_domain" {
+    description = "The domain for the frontend"
+    type        = string
+}
+
 variable "tag" {
     description = "The tag to apply to AWS resources"
     type        = string
