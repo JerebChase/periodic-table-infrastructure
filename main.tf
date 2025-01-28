@@ -95,9 +95,9 @@ source                   = "./modules/ecs"
 # }
 
 module "cloudfront" {
-  source                       = "./modules/cloudfront"
-  periodic_table_bucket_domain = module.s3.periodic_table_bucket_domain
-  certificate_arn              = var.certificate_arn
-  tag                          = local.aws_tag
-  env                          = var.env
+  source                         = "./modules/cloudfront"
+  periodic_table_bucket_endpoint = module.s3.periodic_table_bucket_endpoint
+  certificate_arn                = var.certificate_arn
+  tag                            = local.aws_tag
+  env                            = var.env
 }
