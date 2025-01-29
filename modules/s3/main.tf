@@ -45,12 +45,12 @@ resource "aws_s3_bucket_website_configuration" "periodic_table_bucket_website_co
   }
 }
 
-resource "aws_s3_object" "periodic_table_object" {
-  bucket = aws_s3_bucket.periodic_table_bucket.bucket
-  key    = "periodic-table-import.csv"
-  source = "periodic-table-import.csv"
+# resource "aws_s3_object" "periodic_table_object" {
+#   bucket = aws_s3_bucket.periodic_table_bucket.bucket
+#   key    = "periodic-table-import.csv"
+#   source = "periodic-table-import.csv"
 
-  tags = {
-    env = "${var.tag}"
-  }
-}
+#   tags = {
+#     env = "${var.tag}"
+#   }
+# }
