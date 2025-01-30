@@ -41,7 +41,7 @@ resource "aws_s3_bucket_website_configuration" "periodic_table_bucket_website_co
   }
 
   error_document {
-    key = "error.html"
+    key = "index.html"
   }
 }
 
