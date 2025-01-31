@@ -6,7 +6,7 @@ resource "aws_ecs_cluster" "periodic_table_cluster" {
 }
 
 resource "aws_cloudwatch_log_group" "ecs_log_group" {
-  name              = "/ecs/spring-boot"
+  name              = "/ecs/${var.env}-spring-boot"
   retention_in_days = 7
 }
 
