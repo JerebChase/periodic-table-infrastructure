@@ -34,7 +34,7 @@ resource "aws_ecs_task_definition" "periodic_table_task" {
     logConfiguration = {
       logDriver = "awslogs"
       options = {
-        awslogs-group  = "/ecs/spring-boot"
+        awslogs-group  = "/ecs/${var.env}-spring-boot"
         awslogs-region = "us-east-1"
         awslogs-stream-prefix = "ecs"
       }
