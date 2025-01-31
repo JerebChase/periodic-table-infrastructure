@@ -2,12 +2,15 @@ resource "aws_appautoscaling_target" "ecs_target" {
   service_namespace  = "ecs"
   resource_id        = "service/${var.periodic_table_cluster}/${var.periodic_table_service}"
   scalable_dimension = "ecs:service:DesiredCount"
-  min_capacity       = 0
-  max_capacity       = 1
+  min_capacity       = 1
+  max_capacity       = 2
+  tags               = {
+    env = "${var.tag}"
+  }
 }
 
 resource "aws_appautoscaling_policy" "cpu_scaling_policy" {
-  name               = "ecs-cpu-scaling-policy"
+  name               = "periodic-table-ecs-cpu-scaling-policy-${var.env}"
   service_namespace  = aws_appautoscaling_target.ecs_target.service_namespace
   resource_id        = aws_appautoscaling_target.ecs_target.resource_id
   scalable_dimension = aws_appautoscaling_target.ecs_target.scalable_dimension
@@ -22,4 +25,6 @@ resource "aws_appautoscaling_policy" "cpu_scaling_policy" {
     scale_in_cooldown  = 60
     scale_out_cooldown = 60
   }
+
+  depends_on = [aws_appautoscaling_target.ecs_target]
 }

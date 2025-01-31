@@ -1,10 +1,5 @@
-variable "ecs_task_role_arn" {
-    description = "The arn of the ecs task execution role"
-    type        = string
-}
-
-variable "ecr_repository_url" {
-    description = "The url for the ecr repository"
+variable "periodic_table_vcp_id" {
+    description = "The id of the periodic table VPC"
     type        = string
 }
 
@@ -13,13 +8,13 @@ variable "periodic_table_subnets" {
     type        = list
 }
 
-variable "periodic_table_tg_arn" {
-    description = "The arn for the target group"
+variable "alb_sg" {
+    description = "The security group for the alb on the periodic table VPC"
     type        = string
 }
 
-variable "ecs_sg" {
-    description = "The security group for the ecs on the periodic table VPC"
+variable "certificate_arn" {
+    description = "The ARN of the certificate to use for HTTPS"
     type        = string
 }
 
