@@ -52,7 +52,7 @@ module "iam" {
 module "alb" {
   source                 = "./modules/alb"
   periodic_table_vcp_id  = module.vpc.periodic_table_vpc_id
-  periodic_table_subnets = module.vpc.periodic_table_subnets
+  periodic_table_subnets = module.vpc.periodic_table_public_subnets
   alb_sg                 = module.vpc.alb_sg 
   certificate_arn        = var.certificate_arn
   tag                    = local.aws_tag
