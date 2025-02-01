@@ -71,7 +71,7 @@ module "ecs" {
 source                   = "./modules/ecs"
   ecs_task_role_arn      = module.iam.ecs_task_role_arn
   ecr_repository_url     = module.ecr.ecr_repository_url
-  periodic_table_subnets = module.vpc.periodic_table_subnets
+  periodic_table_subnets = module.vpc.periodic_table_private_subnets
   periodic_table_tg_arn  = module.alb.periodic_table_tg_arn
   ecs_sg                 = module.vpc.ecs_sg
   tag                    = local.aws_tag
