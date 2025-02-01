@@ -91,10 +91,10 @@ resource "aws_security_group" "ecs_sg" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.periodic_table_vpc.cidr_block]
   }
 
   tags = {
@@ -223,4 +223,6 @@ resource "aws_route" "dynamodb_gateway_route" {
   route_table_id         = aws_route_table.periodic_table_private_rt.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_vpc_endpoint.dynamodb.id
+
+  depends_on = [aws_vpc_endpoint.dynamodb]
 }
