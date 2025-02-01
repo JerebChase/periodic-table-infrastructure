@@ -223,4 +223,6 @@ resource "aws_route" "dynamodb_gateway_route" {
   route_table_id         = aws_route_table.periodic_table_private_rt.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_vpc_endpoint.dynamodb.id
+
+  depends_on = [aws_vpc_endpoint.dynamodb]
 }
