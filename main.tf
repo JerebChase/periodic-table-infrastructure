@@ -52,7 +52,7 @@ module "iam" {
 module "alb" {
   source                 = "./modules/alb"
   periodic_table_vcp_id  = module.vpc.periodic_table_vpc_id
-  periodic_table_subnets = module.vpc.periodic_table_subnets
+  periodic_table_subnets = module.vpc.periodic_table_public_subnets
   alb_sg                 = module.vpc.alb_sg 
   certificate_arn        = var.certificate_arn
   tag                    = local.aws_tag
@@ -71,7 +71,7 @@ module "ecs" {
 source                   = "./modules/ecs"
   ecs_task_role_arn      = module.iam.ecs_task_role_arn
   ecr_repository_url     = module.ecr.ecr_repository_url
-  periodic_table_subnets = module.vpc.periodic_table_subnets
+  periodic_table_subnets = module.vpc.periodic_table_private_subnets
   periodic_table_tg_arn  = module.alb.periodic_table_tg_arn
   ecs_sg                 = module.vpc.ecs_sg
   tag                    = local.aws_tag
