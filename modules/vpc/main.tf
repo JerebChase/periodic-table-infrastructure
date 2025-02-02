@@ -201,7 +201,6 @@ resource "aws_vpc_endpoint" "ecr_api" {
   }
 }
 
-//TODO: Do I need this if I have the s3 one???
 resource "aws_vpc_endpoint" "ecr_docker" {
   vpc_id            = aws_vpc.periodic_table_vpc.id
   service_name      = "com.amazonaws.us-east-1.ecr.dkr"
