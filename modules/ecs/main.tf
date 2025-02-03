@@ -60,11 +60,11 @@ resource "aws_ecs_service" "periodic_table_service" {
   desired_count   = 1
   launch_type     = "FARGATE"
 
-  network_configuration {
-    subnets          = var.periodic_table_subnets
-    security_groups  = [var.ecs_sg]
-    assign_public_ip = true
-  }
+  # network_configuration {
+  #   subnets          = var.periodic_table_subnets
+  #   security_groups  = [var.ecs_sg]
+  #   assign_public_ip = true
+  # }
 
   load_balancer {
     target_group_arn = var.periodic_table_tg_arn
