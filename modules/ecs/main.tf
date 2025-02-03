@@ -63,6 +63,7 @@ resource "aws_ecs_service" "periodic_table_service" {
   network_configuration {
     subnets          = var.periodic_table_subnets
     security_groups  = [var.ecs_sg]
+    assign_public_ip = true
   }
 
   load_balancer {

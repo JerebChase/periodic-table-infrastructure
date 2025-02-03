@@ -30,26 +30,6 @@ resource "aws_subnet" "periodic_table_subnet2" {
   }
 }
 
-resource "aws_subnet" "periodic_table_private_subnet1" {
-  vpc_id            = aws_vpc.periodic_table_vpc.id
-  cidr_block        = "10.0.2.0/24"
-  availability_zone = "us-east-1a"
-
-  tags = {
-    env = "${var.tag}"
-  }
-}
-
-resource "aws_subnet" "periodic_table_private_subnet2" {
-  vpc_id            = aws_vpc.periodic_table_vpc.id
-  cidr_block        = "10.0.3.0/24"
-  availability_zone = "us-east-1b"
-
-  tags = {
-    env = "${var.tag}"
-  }
-}
-
 resource "aws_security_group" "alb_sg" {
   vpc_id = aws_vpc.periodic_table_vpc.id
 
@@ -102,28 +82,6 @@ resource "aws_security_group" "ecs_sg" {
   }
 }
 
-resource "aws_security_group" "vpc_endpoints_sg" {
-  vpc_id = aws_vpc.periodic_table_vpc.id
-
-  ingress {
-    from_port       = 443
-    to_port         = 443
-    protocol        = "tcp"
-    security_groups = [aws_security_group.ecs_sg.id]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    env = "${var.tag}"
-  }
-}
-
 resource "aws_internet_gateway" "periodic_table_gw" {
   vpc_id = aws_vpc.periodic_table_vpc.id
 
@@ -153,86 +111,4 @@ resource "aws_route_table_association" "periodic_table_rta1" {
 resource "aws_route_table_association" "periodic_table_rta2" {
   subnet_id      = aws_subnet.periodic_table_subnet2.id
   route_table_id = aws_route_table.periodic_table_rt.id
-}
-
-resource "aws_route_table" "periodic_table_private_rt" {
-  vpc_id = aws_vpc.periodic_table_vpc.id
-
-  tags = {
-    env  = "${var.tag}"
-  }
-}
-
-resource "aws_route_table_association" "periodic_table_private_rta1" {
-  subnet_id      = aws_subnet.periodic_table_private_subnet1.id
-  route_table_id = aws_route_table.periodic_table_private_rt.id
-}
-
-resource "aws_route_table_association" "periodic_table_private_rta2" {
-  subnet_id      = aws_subnet.periodic_table_private_subnet2.id
-  route_table_id = aws_route_table.periodic_table_private_rt.id
-}
-
-resource "aws_vpc_endpoint" "cloudwatch_logs" {
-  vpc_id             = aws_vpc.periodic_table_vpc.id
-  service_name       = "com.amazonaws.us-east-1.logs"
-  vpc_endpoint_type  = "Interface"
-  security_group_ids = [aws_security_group.vpc_endpoints_sg.id]
-  subnet_ids         = [aws_subnet.periodic_table_private_subnet1.id, aws_subnet.periodic_table_private_subnet2.id]
-
-  private_dns_enabled = true
-
-  tags = {
-    env  = "${var.tag}"
-  }
-}
-
-resource "aws_vpc_endpoint" "ecr_api" {
-  vpc_id            = aws_vpc.periodic_table_vpc.id
-  service_name      = "com.amazonaws.us-east-1.ecr.api"
-  vpc_endpoint_type = "Interface"
-  security_group_ids = [aws_security_group.vpc_endpoints_sg.id]
-  subnet_ids         = [aws_subnet.periodic_table_private_subnet1.id, aws_subnet.periodic_table_private_subnet2.id]
-
-  private_dns_enabled = true
-
-  tags = {
-    env  = "${var.tag}"
-  }
-}
-
-resource "aws_vpc_endpoint" "ecr_docker" {
-  vpc_id            = aws_vpc.periodic_table_vpc.id
-  service_name      = "com.amazonaws.us-east-1.ecr.dkr"
-  vpc_endpoint_type = "Interface"
-  security_group_ids = [aws_security_group.vpc_endpoints_sg.id]
-  subnet_ids         = [aws_subnet.periodic_table_private_subnet1.id, aws_subnet.periodic_table_private_subnet2.id]
-
-  private_dns_enabled = true
-
-  tags = {
-    env  = "${var.tag}"
-  }
-}
-
-resource "aws_vpc_endpoint" "s3" {
-  vpc_id       = aws_vpc.periodic_table_vpc.id
-  service_name = "com.amazonaws.us-east-1.s3"
-  vpc_endpoint_type = "Gateway"
-  route_table_ids   = [aws_route_table.periodic_table_private_rt.id]
-
-  tags = {
-    env  = "${var.tag}"
-  }
-}
-
-resource "aws_vpc_endpoint" "dynamodb" {
-  vpc_id       = aws_vpc.periodic_table_vpc.id
-  service_name = "com.amazonaws.us-east-1.dynamodb"
-  vpc_endpoint_type = "Gateway"
-  route_table_ids   = [aws_route_table.periodic_table_private_rt.id]
-
-  tags = {
-    env  = "${var.tag}"
-  }
 }
